@@ -18,6 +18,7 @@ jobs:
         with:
           ruby-version: '${{ steps.ruby-version.outputs.VERSION }}'
           bundler-cache: false
+      - run: bundle install
 
       - name: Database create and migrate
         run: |
