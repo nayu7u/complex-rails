@@ -8,18 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Ruby
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Detect ruby version
+        id: ruby-version
+        run: echo "::set-output name=VERSION::$(cat .ruby-version)"
+      - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
-
-      - name: Bundler and gem install
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3 --path vendor/bundle
+          ruby-version: '${{ steps.ruby-version.outputs.VERSION }}'
+          bundler-cache: false
 
       - name: Database create and migrate
         run: |
