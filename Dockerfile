@@ -11,8 +11,8 @@ RUN apt-get update -qq \
     && rm -rf /var/lib/apt/lists/*
 RUN git help
 WORKDIR /workspace
-# COPY Gemfile /workspace/Gemfile
-# COPY Gemfile.lock /workspace/Gemfile.lock
-# RUN bundle install
-# COPY . /workspace
+COPY Gemfile /workspace/Gemfile
+COPY Gemfile.lock /workspace/Gemfile.lock
+RUN bundle install
+COPY . /workspace
 
